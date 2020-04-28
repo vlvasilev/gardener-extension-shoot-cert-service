@@ -105,6 +105,16 @@ func (a *actuator) Delete(ctx context.Context, ex *extensionsv1alpha1.Extension)
 	return a.deleteSeedResources(ctx, namespace)
 }
 
+// Restore reconcile the Extension resource.
+func (a *actuator) Restore(ctx context.Context, ex *extensionsv1alpha1.Extension) error {
+	return a.Reconcile(ctx, ex)
+}
+
+// Migrate deletes the Extension resource.
+func (a *actuator) Migrate(ctx context.Context, ex *extensionsv1alpha1.Extension) error {
+	return a.Delete(ctx, ex)
+}
+
 // InjectConfig injects the rest config to this actuator.
 func (a *actuator) InjectConfig(config *rest.Config) error {
 	a.config = config
